@@ -77,3 +77,75 @@ Automate SharePoint Online tasks using the PnP PowerShell module.
   Get-PnPListItem -List "Lab List" | Export-Csv -Path "LabList.csv" -NoTypeInformation
   ```
 
+## Lab 4: Using Microsoft Graph to Manage SharePoint
+### Objective:
+Learn to use Microsoft Graph API to interact with SharePoint Online.
+
+### Prerequisites:
+- Register an app in Azure AD and obtain an access token.
+- Use tools like Postman or Graph Explorer.
+
+### Steps:
+1. Retrieve a list of SharePoint sites:
+ - Endpoint:
+```powershell
+GET https://graph.microsoft.com/v1.0/sites
+  ```
+ - Example response:
+```powershell
+{
+  "value": [
+    {
+      "id": "site-id",
+      "name": "Communication Site",
+      "webUrl": "https://<your-tenant>.sharepoint.com/sites/CommunicationSite"
+    }
+  ]
+}
+  ```
+2. Create a new list in a site:
+- Endpoint:
+```powershell
+POST https://graph.microsoft.com/v1.0/sites/<site-id>/lists
+  ```
+- Body:
+```powershell
+{
+  "displayName": "Lab List",
+  "list": {
+    "template": "genericList"
+  }
+}
+  ```
+3. Add an item to the list:
+- Endpoint:
+```powershell
+POST https://graph.microsoft.com/v1.0/sites/<site-id>/lists/<list-id>/items
+  ```
+- Body:
+```powershell
+{
+  "fields": {
+    "Title": "John Doe"
+  }
+}
+  ```
+
+## Lab 5: Exploring SharePoint Admin Center
+### Objective:
+Perform common administrative tasks using the SharePoint Admin Center.
+
+
+### Steps:
+
+1. **Create a new site collection:**
+   - Go to **Active Sites** > **Create** > **Team Site**.
+   - Fill in the required details and create the site.
+2. **Configure sharing settings:**
+   - Navigate to **Policies** > **Sharing**.
+   - Set sharing to **Anyone** or **Only people in your organization**.
+3. **Monitor site usage:**
+   - Go to **Active Sites** and select a site.
+   - View the **Usage** tab for activity reports.
+
+
