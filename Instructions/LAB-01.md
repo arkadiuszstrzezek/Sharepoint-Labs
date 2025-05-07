@@ -1,4 +1,4 @@
-# SharePoint Online Lab Exercises
+# SharePoint Online Lab Exercises- LAB-01
 
 ## Lab 1: Role of a SharePoint Administrator
 ### Objective:
