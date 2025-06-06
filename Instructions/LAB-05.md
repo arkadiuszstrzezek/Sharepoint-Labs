@@ -5,104 +5,247 @@
 Learn how to plan and configure customizations and applications in SharePoint Online using Power Automate and Power Apps.
 
 ### Steps:
-1. **Understand Customizations**:
-   - Discuss the importance of customizations in SharePoint Online.
-   - Examples of customizations:
-     - Automating workflows with Power Automate.
-     - Building custom forms and applications with Power Apps.
-2. **Plan Customizations**:
-   - Identify a business scenario (e.g., Leave Request Management, Task Tracking).
-   - Define the data structure in SharePoint Online (e.g., lists for storing requests or tasks).
-3. **Create a SharePoint List**:
-   - Navigate to a SharePoint site.
-   - Create a list named **Leave Requests** with the following columns:
-     - **Employee Name** (Single line of text)
-     - **Leave Type** (Choice: Vacation, Sick, Other)
-     - **Start Date** (Date and Time)
-     - **End Date** (Date and Time)
-     - **Approval Status** (Choice: Pending, Approved, Rejected)
+Here’s the instruction converted to an English Markdown (`.md`) file. You can copy and save it as, for example, `reserve-vehicle-app.md`.
+
+
+# Power Apps: Reserve A Vehicle App Using SharePoint List Relationships
+
+## Table of Contents
+
+- [Introduction: Reserve A Vehicle App](#introduction-reserve-a-vehicle-app)
+- [SharePoint Lists & One‑to‑Many Relationships](#sharepoint-lists--one-to-many-relationships)
+- [Select A Vehicle](#select-a-vehicle)
+- [Reservation Form](#reservation-form)
+- [Showing Related Reservations](#showing-related-reservations)
+- [Adding A New Reservation](#adding-a-new-reservation)
+- [Editing An Existing Reservation](#editing-an-existing-reservation)
+- [Resetting The Form](#resetting-the-form)
+- [Deleting A Reservation](#deleting-a-reservation)
 
 ---
 
-## Lab 2: Overview of Automation and Applications
-### Objective:
-Understand the mechanisms of automation and applications in SharePoint Online.
+## Introduction: Reserve A Vehicle App
 
-### Steps:
-1. **Discuss Automation**:
-   - Explain how Power Automate can be used to automate workflows in SharePoint Online.
-   - Examples:
-     - Sending approval requests.
-     - Notifying users of changes in a list or library.
-2. **Discuss Applications**:
-   - Explain how Power Apps can be used to build custom applications.
-   - Examples:
-     - Creating a mobile-friendly form for submitting leave requests.
-     - Building a dashboard for tracking tasks.
+The **Reserve A Vehicle** app enables company employees to book a vehicle for travel. The user selects a vehicle, enters reservation details (name, dates), and submits. Existing reservations can be edited or deleted.
 
 ---
 
-## Lab 3: Power Automate – Overview and Application
-### Objective:
-Learn how to create and use Power Automate flows with SharePoint Online.
+## SharePoint Lists & One‑to‑Many Relationships
 
-### Steps:
-1. **Create an Approval Flow**:
-   - Navigate to **Power Automate** (https://flow.microsoft.com).
-   - Create a new flow using the **Automated Cloud Flow** template.
-   - Trigger: **When an item is created** in the **Leave Requests** list.
-   - Actions:
-     - **Start and wait for an approval**:
-       - Approval type: **Approve/Reject – First to respond**.
-       - Title: **Leave Request Approval**.
-       - Assigned to: Manager's email.
-     - **Update item**:
-       - Update the **Approval Status** column in the **Leave Requests** list based on the approval outcome.
-   - Save and test the flow by creating a new item in the **Leave Requests** list.
-2. **Notify Employee of Approval Outcome**:
-   - Add an action to send an email to the employee with the approval outcome.
+### List 1: `Company Vehicles`
 
----
+| ID | YearMakeModel         | AssetCode | LicensePlate | Office     |
+|----|-----------------------|-----------|--------------|------------|
+| 1  | 2020 Dodge Ram        | 10-023    | Y2K 9D9      | Albany     |
+| 2  | 2016 Ford F150        | 10-034    | Q9T 9T5      | Albany     |
+| 3  | 2019 GMC Sierra       | 10-122    | A7I 0Z5      | Fargo      |
+| 4  | 2020 Honda Ridgeline  | 10-021    | J9B 1P8      | Schaumberg |
+| 5  | 2021 Nissan Pathfinder| 10-301    | Q7K 7L7      | Schaumberg |
 
-## Lab 4: Power Apps – Overview and Application
-### Objective:
-Learn how to create a canvas app using Power Apps to interact with SharePoint Online data.
+### List 2: `Vehicle Reservations`
 
-### Steps:
-1. **Create a Canvas App**:
-   - Navigate to **Power Apps** (https://make.powerapps.com).
-   - Create a new **Canvas App** from blank.
-   - Connect the app to the **Leave Requests** SharePoint list.
-2. **Design the App**:
-   - Add a form to the app for submitting leave requests:
-     - Fields: **Employee Name**, **Leave Type**, **Start Date**, **End Date**.
-     - Use the **SubmitForm** function to save data to the SharePoint list.
-   - Add a gallery to display existing leave requests:
-     - Connect the gallery to the **Leave Requests** list.
-     - Display columns like **Employee Name**, **Leave Type**, and **Approval Status**.
-3. **Integrate with Power Automate**:
-   - Add a button to the app to trigger the approval flow created in Lab 3.
-   - Use the **Power Automate** connector to call the flow from the app.
-4. **Test the App**:
-   - Publish the app and test it by submitting a leave request.
-   - Verify that the approval flow is triggered and the **Approval Status** is updated in the SharePoint list.
+| ID | VehicleID | Employee      | StartDate  | EndDate    |
+|----|-----------|---------------|------------|------------|
+| 1  | 3         | Mark Clark    | 2021-01-25 | 2021-01-29 |
+| 2  | 2         | Anna Sinclair | 2021-01-25 | 2021-01-27 |
+| 3  | 4         | Laura Andrews | 2021-01-27 | 2021-01-29 |
+| 4  | 1         | Sarah Green   | 2021-01-25 | 2021-01-25 |
+| 5  | 1         | John Freeman  | 2021-01-26 | 2021-01-27 |
+| 6  | 3         | Laura Andrews | 2021-02-01 | 2021-02-05 |
+| 7  | 3         | Mark Clark    | 2021-02-10 | 2021-02-10 |
+| 8  | 5         | Anna Sinclair | 2021-02-13 | 2021-02-14 |
+
+The `VehicleID` column in `Vehicle Reservations` links to the `ID` in `Company Vehicles`, creating a one-to-many relationship.
 
 ---
 
-## Lab 5: Advanced Customizations
-### Objective:
-Explore advanced customizations using Power Automate and Power Apps.
+## Select A Vehicle
 
-### Steps:
-1. **Create Conditional Workflows**:
-   - Modify the approval flow to include conditional logic:
-     - If the leave type is **Sick**, auto-approve the request.
-     - If the leave type is **Vacation**, send it for manager approval.
-2. **Enhance the Canvas App**:
-   - Add filtering and sorting options to the gallery.
-   - Use conditional formatting to highlight requests based on their approval status.
-3. **Secure the App**:
-   - Use role-based access control to restrict access to certain features of the app (e.g., only managers can approve requests).
+1. Open Power Apps Studio and create a new tablet app.
+2. Insert a vertical gallery and set its data source to `Company Vehicles`.
+3. Change the layout to **Title** and set the title field to `YearMakeModel`.
+4. Move the right-chevron icon to the left of the label and change its **Icon** property to `Icon.Cars`.
+5. Add a label above the gallery with the text: **Choose A Vehicle.**
+
+---
+
+## Reservation Form
+
+1. Add a label to display the selected vehicle:
+
+   ```powerapps
+    gal_ChooseAVehicle.Selected.YearMakeModel
+   ````
+
+2. Add the following read-only fields:
+
+   * **Asset Code**:
+
+     ```powerapps
+     gal_ChooseAVehicle.Selected.AssetCode
+     ```
+
+   * **License Plate**:
+
+     ```powerapps
+     gal_ChooseAVehicle.Selected.LicensePlate
+     ```
+
+   * **Office**:
+
+     ```powerapps
+     gal_ChooseAVehicle.Selected.Office
+     ```
+
+   → Set their **DisplayMode** to `DisplayMode.Disabled`.
+
+3. Add fields for user input:
+
+   * **Employee** (text input): `Default = Blank()`
+   * **Start Date**, **End Date** (date pickers): `Default = Today()`
+
+---
+
+## Showing Related Reservations
+
+1. Add a blank gallery at the bottom of the screen and set its data source to `Vehicle Reservations`.
+
+2. In the **Items** property, set:
+
+   ```powerapps
+   Filter(
+     'Vehicle Reservations',
+     VehicleID = gal_ChooseAVehicle.Selected.ID
+   )
+   ```
+
+3. Inside the gallery, add labels bound to:
+
+   * `ThisItem.Employee`
+   * `ThisItem.StartDate`
+   * `ThisItem.EndDate`
+
+4. Add a header label above the gallery to indicate columns.
+
+---
+
+## Adding A New Reservation
+
+1. Insert a **Send** icon and a label named **Submit**.
+2. Use this code in their **OnSelect** property:
+
+   ```powerapps
+   Patch(
+     'Vehicle Reservations',
+     Defaults('Vehicle Reservations'),
+     {
+       VehicleID: gal_ChooseAVehicle.Selected.ID,
+       Employee: txt_Employee.Text,
+       StartDate: dte_StartDate.SelectedDate,
+       EndDate: dte_EndDate.SelectedDate
+     }
+   );
+   Reset(txt_Employee);
+   Reset(dte_StartDate);
+   Reset(dte_EndDate);
+   ```
+
+---
+
+## Editing An Existing Reservation
+
+1. Add an **Edit** icon within the reservations gallery.
+
+2. Set the gallery’s **Default** property to:
+
+   ```powerapps
+   Defaults('Vehicle Reservations')
+   ```
+
+3. Update defaults for input fields:
+
+   * **Employee**:
+
+     ```powerapps
+     gal_CurrentBookings.Selected.Employee
+     ```
+
+   * **Start Date**, **End Date**:
+
+     ```powerapps
+     Coalesce(
+       gal_CurrentBookings.Selected.StartDate,
+       Today()
+     )
+     Coalesce(
+       gal_CurrentBookings.Selected.EndDate,
+       Today()
+     )
+     ```
+
+4. Update the **OnSelect** for Submit:
+
+   ```powerapps
+   Patch(
+     'Vehicle Reservations',
+     Coalesce(
+       LookUp(
+         'Vehicle Reservations',
+         ID = gal_CurrentBookings.Selected.ID
+       ),
+       Defaults('Vehicle Reservations')
+     ),
+     {
+       VehicleID: gal_ChooseAVehicle.Selected.ID,
+       Employee: txt_Employee.Text,
+       StartDate: dte_StartDate.SelectedDate,
+       EndDate: dte_EndDate.SelectedDate
+     }
+   );
+   Reset(txt_Employee);
+   Reset(dte_StartDate);
+   Reset(dte_EndDate);
+   Reset(gal_CurrentBookings);
+   ```
+
+---
+
+## Resetting The Form
+
+1. Add an **Add** icon and label named **New**.
+2. Set the **OnSelect** to:
+
+   ```powerapps
+   Reset(gal_CurrentBookings)
+   ```
+
+---
+
+## Deleting A Reservation
+
+1. Insert a **Trash** icon in the gallery.
+2. Use this code in **OnSelect**:
+
+   ```powerapps
+   Remove(
+     'Vehicle Reservations',
+     LookUp(
+       'Vehicle Reservations',
+       ID = ThisItem.ID
+     )
+   )
+   ```
+
+---
+
+**Done!** You now have a full guide for building a Power Apps reservation system with SharePoint list relationships.
+
+```
+
+---
+
+Let me know if you’d like a downloadable `.md` file or any tweaks!
+```
 
 ---
 
