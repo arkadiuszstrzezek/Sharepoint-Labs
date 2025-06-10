@@ -59,44 +59,48 @@ Explore and configure all settings available in SharePoint Premium Advanced Mana
 
 ---
 
-## Lab 3: Testing and Monitoring Advanced Management Features
+## Lab 3: Exploring and Configuring Advanced Management Features
 ### Objective:
-Test the configured settings and monitor their impact on SharePoint Online.
+Understand how to configure advanced management features in SharePoint Premium Advanced Management and learn their benefits.
 
 ### Steps:
-1. **Test Conditional Access Policies**:
-   - Attempt to access a SharePoint site from a non-compliant device or restricted location.
-   - Verify that access is blocked or limited based on the configured policies.
-2. **Test Advanced Sharing Controls**:
-   - Share a document with an external user.
-   - Verify that the sharing link expires as per the configured settings.
-   - Attempt to share with a domain not allowed by the sharing restrictions.
-3. **Test Site Lifecycle Management**:
-   - Create a test site and leave it inactive.
-   - Verify that notifications are sent to the site owner before automatic deletion.
-4. **Monitor Audit Logs**:
-   - Navigate to the **Microsoft Purview Compliance Portal**.
-   - Go to **Audit** > **Search**.
-   - Review logs for activities such as file access, sharing, and site management.
+1. **Conditional Access Policies**:
+   - Navigate to **Access Control** > **Conditional Access** in the SharePoint Admin Center.
+   - Configure policies to restrict access based on:
+     - Device compliance (e.g., only allow access from managed devices).
+     - Location restrictions (e.g., block access from specific countries).
+     - Session controls (e.g., limit session duration for external users).
+   - Discuss the benefits of conditional access, such as enhanced security and reduced risk of unauthorized access.
+
+2. **Advanced Sharing Controls**:
+   - Navigate to **Sharing** > **Advanced Sharing Settings** in the SharePoint Admin Center.
+   - Configure settings such as:
+     - Expiration dates for sharing links to ensure temporary access.
+     - Restrict sharing to specific trusted domains to prevent data leakage.
+     - Require authentication for external sharing to ensure secure access.
+   - Highlight the importance of controlling external sharing for compliance and data protection.
+
+3. **Site Lifecycle Management**:
+   - Navigate to **Site Management** > **Lifecycle Policies** in the SharePoint Admin Center.
+   - Configure policies for:
+     - Automatic site deletion after a specified period of inactivity.
+     - Notifications sent to site owners before deletion to allow action.
+   - Explain how lifecycle management helps maintain a clean and organized SharePoint environment.
+
+4. **Enhanced Auditing**:
+   - Navigate to **Monitoring** > **Audit Logs** in the SharePoint Admin Center.
+   - Enable advanced auditing for SharePoint activities, such as:
+     - Tracking file access and modifications.
+     - Monitoring sharing and permission changes.
+     - Logging site creation and deletion activities.
+   - Discuss how auditing provides visibility into user actions and helps ensure compliance with organizational policies.
 
 ---
 
-## Lab 4: Optimizing Advanced Management Settings
-### Objective:
-Learn how to optimize SharePoint Premium Advanced Management settings for your organization.
+### Benefits of SharePoint Premium Advanced Management
+- **Improved Security**: Conditional access policies and advanced sharing controls reduce the risk of unauthorized access and data leakage.
+- **Enhanced Compliance**: Advanced auditing and lifecycle management ensure adherence to regulatory requirements and organizational policies.
+- **Streamlined Management**: Automated site lifecycle policies help maintain a clean and efficient SharePoint environment.
+- **Visibility and Control**: Detailed audit logs provide insights into user activities, enabling proactive monitoring and issue resolution.
 
-### Steps:
-1. **Review Usage Reports**:
-   - Navigate to the **Microsoft 365 Admin Center**.
-   - Go to **Reports** > **Usage**.
-   - Review reports for SharePoint activity and identify areas for improvement.
-2. **Adjust Policies**:
-   - Based on usage data, refine conditional access and sharing policies.
-   - Example: Allow sharing with trusted external domains while blocking others.
-3. **Train Administrators**:
-   - Provide training for administrators on using advanced management features.
-   - Share best practices for monitoring and managing SharePoint sites.
-
----
-
-This lab provides hands-on experience with configuring and testing SharePoint Premium Advanced Management features.
+This lab focuses on exploring and configuring advanced management features to understand their value in securing and optimizing SharePoint Online.
