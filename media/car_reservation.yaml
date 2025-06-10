@@ -1,0 +1,372 @@
+Screens:
+  Screen1:
+    Properties:
+      Fill: =RGBA(241, 244, 249, 1)
+      LoadingSpinnerColor: =RGBA(56, 96, 178, 1)
+    Children:
+      - gal_ChooseAVehicle:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_OneTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(227, 234, 243, 1)
+            Height: =693
+            Items: ='Company Vehicles'
+            Width: =321
+            Y: =75
+          Children:
+            - Title3:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: =RGBA(50, 49, 48, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                  Height: =32
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =14
+                  Text: =ThisItem.YearMakeModel
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =189
+                  X: =70
+                  Y: =30
+            - NextArrow3:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  AccessibleLabel: =Self.Tooltip
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: =RGBA(166, 166, 166, 1)
+                  DisabledBorderColor: =RGBA(56, 56, 56, 1)
+                  DisabledColor: =RGBA(119, 119, 119, 1)
+                  Height: =50
+                  Icon: =Icon.ChevronRight
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  PaddingRight: =16
+                  PaddingTop: =16
+                  Tooltip: ="View item details"
+                  Width: =50
+                  X: =Parent.TemplateWidth - Self.Width - 12
+                  Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+            - Separator3:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =8
+                  OnSelect: =Select(Parent)
+                  Width: =Parent.TemplateWidth
+                  Y: =Parent.TemplateHeight - Self.Height
+            - Rectangle3:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(0, 18, 107, 1)
+                  Height: =Parent.TemplateHeight - Separator3.Height
+                  OnSelect: =Select(Parent)
+                  Visible: =ThisItem.IsSelected
+                  Width: =4
+            - Icon3:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(0, 18, 107, 1)
+                  Height: =47
+                  Icon: =Icon.Cars
+                  OnSelect: =Select(Parent)
+                  Width: =47
+                  X: =13
+                  Y: =15
+      - gal_CurrentBookings:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_ThreeTextOneImageVariant_ver5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Default: =Defaults('Vehicle Reservations')
+            Height: =377
+            Items: |-
+              =Filter(
+                'Vehicle Reservations',
+                VechicleID = gal_ChooseAVehicle.Selected.ID
+              )
+            Width: =1045
+            X: =321
+            Y: =391
+          Children:
+            - Title6:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: =RGBA(50, 49, 48, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                  Height: =Self.Size * 1.8
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =14
+                  Text: =ThisItem.Employee
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =Parent.TemplateWidth - 185
+                  X: =115
+                  Y: =(Parent.TemplateHeight - (Self.Size*1.8 + Subtitle3.Size*1.8 + 2 + Body2.Size*1.8)) / 2
+            - Subtitle3:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                  Height: =21
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: |-
+                    ="Start Date: "& ThisItem.StartDate
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =190
+                  X: =115
+                  Y: =56
+            - Body2:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Font: =Font.'Open Sans'
+                  FontWeight: =If(ThisItem.IsSelected, FontWeight.Semibold, FontWeight.Normal)
+                  Height: =Self.Size * 1.8
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  Size: =12
+                  Text: |-
+                    ="End Date: "& ThisItem.EndDate
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =Subtitle3.Width
+                  X: =295
+                  Y: =56
+            - Separator6:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(255, 255, 255, 1)
+                  Height: =8
+                  OnSelect: =Select(Parent)
+                  Width: =Parent.TemplateWidth
+                  Y: =Parent.TemplateHeight - Self.Height
+            - Rectangle6:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Fill: =RGBA(0, 18, 107, 1)
+                  Height: =Parent.TemplateHeight - Separator6.Height
+                  OnSelect: =Select(Parent)
+                  Visible: =ThisItem.IsSelected
+                  Width: =4
+            - Icon9:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(0, 18, 107, 1)
+                  Height: =39
+                  Icon: =Icon.Edit
+                  OnSelect: =Select(Parent)
+                  Width: =49
+                  X: =862
+                  Y: =34
+            - Icon11:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 18, 107, 1)
+                  Color: =RGBA(0, 18, 107, 1)
+                  Height: =52
+                  Icon: =Icon.Trash
+                  OnSelect: |-
+                    =Remove(
+                        'Vehicle Reservations',
+                        LookUp('Vehicle Reservations',
+                        ID=ThisItem.ID)
+                    )
+                  Width: =43
+                  X: =932
+                  Y: =21
+      - Label1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Fill: =RGBA(175, 191, 224, 1)
+            Font: =Font.'Open Sans'
+            Height: =64
+            Size: =20
+            Text: ="Choose A Vehicle"
+            Width: =321
+      - Label2:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Height: =64
+            Size: =20
+            Text: =gal_ChooseAVehicle.Selected.YearMakeModel
+            Width: =1034
+            X: =332
+      - Label3:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Font: =Font.'Open Sans'
+            Text: ="Asset Code"
+            X: =355
+            Y: =112
+      - Label3_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Font: =Font.'Open Sans'
+            Text: ="License Plate"
+            X: =540
+            Y: =111
+      - Label3_2:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Font: =Font.'Open Sans'
+            Text: ="Office"
+            X: =726
+            Y: =121
+      - Label4:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Text: =gal_ChooseAVehicle.Selected.AssetCode
+            X: =355
+            Y: =152
+      - Label4_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Text: =gal_ChooseAVehicle.Selected.LicensePlate
+            X: =540
+            Y: =151
+      - Label4_2:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Text: =gal_ChooseAVehicle.Selected.Office
+            X: =726
+            Y: =161
+      - Label3_3:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Font: =Font.'Open Sans'
+            Text: ="Employee"
+            X: =355
+            Y: =214
+      - Label3_4:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Font: =Font.'Open Sans'
+            Text: ="Start Date"
+            X: =546
+            Y: =213
+      - Label3_5:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Font: =Font.'Open Sans'
+            Text: ="End Date"
+            X: =913
+            Y: =218
+      - dte_StartDate:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DefaultDate: =Coalesce(gal_CurrentBookings.Selected.StartDate, Today())
+            Font: =Font.'Open Sans'
+            IconBackground: =RGBA(56, 96, 178, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            X: =546
+            Y: =253
+      - dte_EndDate:
+          Control: Classic/DatePicker@2.6.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            DefaultDate: =Coalesce(gal_CurrentBookings.Selected.EndDate, Today())
+            Font: =Font.'Open Sans'
+            IconBackground: =RGBA(56, 96, 178, 1)
+            IconFill: =RGBA(255, 255, 255, 1)
+            X: =913
+            Y: =258
+      - Icon4:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 18, 107, 1)
+            Height: =52
+            Icon: =Icon.Send
+            OnSelect: "=// create a new record\r\nPatch(\r\n   'Vehicle Reservations',\r\n   /* new code block */\r\n   Coalesce(\r\n       LookUp(\r\n           'Vehicle Reservations',\r\n           ID=gal_CurrentBookings.Selected.ID\r\n       ),\r\n       Defaults('Vehicle Reservations')\r\n   ),\r\n   /* end block */\r\n   {\r\n       // relationship field\r\n       VechicleID: gal_ChooseAVehicle.Selected.ID,\r\n \r\n       // other fields\r\n       Employee: txt_Employee.Text,\r\n       StartDate: dte_StartDate.SelectedDate,\r\n       EndDate: dte_EndDate.SelectedDate\r\n    }\r\n);\r\n// reset controls\r\nReset(txt_Employee);\r\nReset(dte_StartDate);\r\nReset(dte_EndDate);\r\nReset(gal_CurrentBookings); //<-- new code"
+            Width: =89
+            X: =1265
+            Y: =6
+      - Label12:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Text: ="Submit"
+            Width: =80
+            X: =1202
+            Y: =12
+      - txt_Employee:
+          Control: Classic/TextInput@2.3.2
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Default: =gal_CurrentBookings.Selected.Employee
+            Font: =Font.'Open Sans'
+            HoverBorderColor: =RGBA(0, 18, 107, 1)
+            HoverFill: =RGBA(186, 202, 226, 1)
+            Width: =150
+            X: =352
+            Y: =253
+      - Icon12:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Color: =RGBA(0, 18, 107, 1)
+            Height: =40
+            Icon: =Icon.Add
+            OnSelect: =Reset(gal_CurrentBookings)
+            Width: =54
+            X: =1131
+            Y: =12
+      - Label12_1:
+          Control: Label@2.5.1
+          Properties:
+            BorderColor: =RGBA(0, 18, 107, 1)
+            Font: =Font.'Open Sans'
+            Text: ="New"
+            Width: =53
+            X: =1078
+            Y: =12
