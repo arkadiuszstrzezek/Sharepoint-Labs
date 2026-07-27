@@ -77,6 +77,55 @@ po konsultacji, jeśli pracujesz z kimś w zespole.
 
 
 =======================================================
+JAK TWORZYĆ NOWE GAŁĘZIE (BRANCHE)
+=======================================================
+
+Polecane: rób to z terminala / VS Code, nie z GitHuba w przeglądarce.
+Powód: masz pełną kontrolę nad tym, z jakiego brancha odgałęziasz
+(np. na pewno z "dev", a nie przez pomyłkę z "main"), i branch od razu
+jest dostępny lokalnie - nie trzeba dodatkowo go pobierać.
+
+Tworzenie GitHub (przeglądarka) ma sens tylko wtedy, gdy:
+- tworzysz branch "na zapas" / dla kogoś innego, a sam od razu w niej
+  nie pracujesz,
+- pamiętasz, żeby potem zrobić "git fetch" / "git pull", zanim
+  zaczniesz na niej pracować lokalnie.
+
+KROK PO KROKU (terminal / VS Code):
+
+1. Upewnij się, że jesteś na branchu, z którego chcesz odgałęzić
+   (najczęściej dev):
+
+    git checkout dev
+    git pull origin dev
+
+2. Utwórz nową gałąź i od razu się na nią przełącz:
+
+    git checkout -b nazwa-nowej-galezi
+
+   (np. git checkout -b feature/lab03-update)
+
+3. Sprawdź, czy jesteś na nowej gałęzi:
+
+    git branch
+
+4. Pracuj, commituj jak zwykle (patrz sekcja "Codzienny workflow").
+
+5. Przy pierwszym pushu nowej gałęzi na GitHuba trzeba wskazać upstream:
+
+    git push -u origin nazwa-nowej-galezi
+
+   Kolejne pushe na tej gałęzi to już zwykłe:
+
+    git push
+
+KONWENCJA NAZW (proponowana):
+- feature/nazwa-funkcji   -> nowa funkcjonalność / nowy content
+- fix/nazwa-buga           -> poprawka błędu
+- docs/nazwa                -> zmiany w dokumentacji/instrukcjach
+
+
+=======================================================
 JAK PRZENIEŚĆ GOTOWE ZMIANY Z DEV DO MAIN (release)
 =======================================================
 
@@ -95,6 +144,8 @@ Potem wracasz do pracy na dev jak zwykle.
 SZYBKA ŚCIĄGA - NAJWAŻNIEJSZE KOMENDY
 =======================================================
 
+git checkout -b <nazwa>       -> tworzy nową gałąź i przełącza na nią
+git push -u origin <nazwa>   -> pierwszy push nowej gałęzi (ustawia upstream)
 git branch                  -> pokazuje na jakim jesteś branchu
 git status                  -> pokazuje co zmienione / do commitu
 git checkout dev             -> przełącza na branch dev
