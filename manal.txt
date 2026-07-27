@@ -1,0 +1,116 @@
+PROCEDURA PRACY Z GITEM - MAIN / DEV
+Repozytorium: Sharepoint-Labs
+=======================================================
+
+ZASADA OGÓLNA
+-------------
+- Branch "main" = wersja stabilna, "oficjalna" (to co widzą inni / to co jest gotowe).
+- Branch "dev"  = branch roboczy, tu robisz bieżące zmiany, testy, poprawki.
+- Zmiany robisz ZAWSZE na "dev". Do "main" trafiają dopiero gdy coś jest
+  skończone i sprawdzone (przez merge dev -> main).
+
+Zanim zaczniesz cokolwiek robić - SPRAWDŹ NA JAKIM BRANCHU JESTEŚ:
+
+    git branch
+
+Branch z gwiazdką (*) to ten, na którym aktualnie pracujesz.
+
+
+=======================================================
+CODZIENNY WORKFLOW (praca na dev)
+=======================================================
+
+1. Przełącz się na dev i pobierz najnowsze zmiany:
+
+    git checkout dev
+    git pull origin dev
+
+2. Pracuj normalnie - edytuj pliki w Instructions/ itd.
+
+3. Sprawdź co się zmieniło:
+
+    git status
+
+4. Dodaj zmiany i zrób commit:
+
+    git add ./*
+    git commit -m "krótki opis zmian"
+
+5. Wypchnij zmiany na zdalny dev:
+
+    git push origin dev
+
+Powtarzasz kroki 2-5 za każdym razem gdy pracujesz.
+
+
+=======================================================
+CO ZROBIĆ, GDY POMYLISZ BRANCH (zrobiłeś zmiany na main zamiast dev)
+=======================================================
+
+1. Commituj zmiany na main (jeśli jeszcze nie są scommitowane):
+
+    git add ./*
+    git commit -m "opis zmian"
+
+2. Przełącz się na dev:
+
+    git checkout dev
+    git pull origin dev
+
+3. Zlej zmiany z main do dev:
+
+    git merge main
+
+4. Wypchnij zaktualizowany dev:
+
+    git push origin dev
+
+5. Zostań/wróć na dev do dalszej pracy:
+
+    git checkout dev
+
+UWAGA: to NIE cofa zmian z main - commit tam zostaje. To tylko dodatkowo
+przenosi te same zmiany na dev. Jeśli chcesz, żeby main wyglądał dokładnie
+jak przed pomyłką, to osobna operacja (reset + force push) - rób to tylko
+gdy masz pewność, że nikt inny nie pobrał już tych commitów, i najlepiej
+po konsultacji, jeśli pracujesz z kimś w zespole.
+
+
+=======================================================
+JAK PRZENIEŚĆ GOTOWE ZMIANY Z DEV DO MAIN (release)
+=======================================================
+
+Gdy coś na dev jest już gotowe i przetestowane:
+
+    git checkout main
+    git pull origin main
+    git merge dev
+    git push origin main
+    git checkout dev
+
+Potem wracasz do pracy na dev jak zwykle.
+
+
+=======================================================
+SZYBKA ŚCIĄGA - NAJWAŻNIEJSZE KOMENDY
+=======================================================
+
+git branch                  -> pokazuje na jakim jesteś branchu
+git status                  -> pokazuje co zmienione / do commitu
+git checkout dev             -> przełącza na branch dev
+git checkout main            -> przełącza na branch main
+git pull origin <branch>     -> pobiera najnowsze zmiany ze zdalnego brancha
+git add ./*                  -> dodaje wszystkie zmiany do commitu
+git commit -m "opis"         -> zapisuje zmiany lokalnie
+git push origin <branch>     -> wysyła zmiany na GitHuba
+git merge <branch>            -> wciąga zmiany z innego brancha do obecnego
+git log --oneline -5         -> pokazuje ostatnie 5 commitów
+
+
+=======================================================
+ZŁOTA ZASADA
+=======================================================
+
+PRZED KAŻDYM "git add" / "git commit" sprawdź komendą "git branch",
+czy na pewno jesteś na "dev". To zajmuje 2 sekundy i unika pomyłek
+takich jak ta dzisiejsza.
