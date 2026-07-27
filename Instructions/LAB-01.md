@@ -54,9 +54,14 @@ Automate SharePoint Online tasks using the PnP PowerShell module.
   ```powershell
   Install-Module -Name PnP.PowerShell
   ```
+- Grant admin consent for the PnP Management Shell Entra ID app (one-time, per tenant). `Connect-PnPOnline -Interactive` uses a Microsoft-provided multi-tenant Entra ID application; unless it has already been consented to in your tenant, sign-in will fail with a "need admin approval" error. As a Global/SharePoint Administrator, run:
+  ```powershell
+  Register-PnPManagementShellAccess
+  ```
+  This opens a browser window where you approve the requested permissions for the whole tenant. It only needs to be done once.
 - Connect to SharePoint Online:
   ```powershell
-  Connect-PnPOnline -Url https://<your-tenant>.sharepoint.com -UseWebLogin
+  Connect-PnPOnline -Url https://<your-tenant>.sharepoint.com -Interactive
   ```
 
  ### Steps:
@@ -74,7 +79,7 @@ Automate SharePoint Online tasks using the PnP PowerShell module.
   ```
 - Export the list to a CSV file:
   ```powershell
-  Get-PnPListItem -List "Lab List" | Export-Csv -Path "LabList.csv" -NoTypeInformation
+  Get-PnPListItem -List "Lab List" | Select-Object -ExpandProperty FieldValues | Export-Csv -Path "LabList.csv" -NoTypeInformation
   ```
 
 ## Lab 4: Using Microsoft Graph to Manage SharePoint
@@ -88,11 +93,11 @@ Learn to use Microsoft Graph API to interact with SharePoint Online.
 ### Steps:
 1. Retrieve a list of SharePoint sites:
  - Endpoint:
-```powershell
+```http
 GET https://graph.microsoft.com/v1.0/sites
   ```
  - Example response:
-```powershell
+```json
 {
   "value": [
     {
@@ -105,11 +110,11 @@ GET https://graph.microsoft.com/v1.0/sites
   ```
 2. Create a new list in a site:
 - Endpoint:
-```powershell
+```http
 POST https://graph.microsoft.com/v1.0/sites/<site-id>/lists
   ```
 - Body:
-```powershell
+```json
 {
   "displayName": "Lab List",
   "list": {
@@ -119,11 +124,11 @@ POST https://graph.microsoft.com/v1.0/sites/<site-id>/lists
   ```
 3. Add an item to the list:
 - Endpoint:
-```powershell
+```http
 POST https://graph.microsoft.com/v1.0/sites/<site-id>/lists/<list-id>/items
   ```
 - Body:
-```powershell
+```json
 {
   "fields": {
     "Title": "John Doe"
